@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.example.live1308.data.Dao
 import com.example.live1308.data.MainDb
+import com.example.live1308.data.database_migration.MIGRATION_1_2
+import com.example.live1308.data.database_migration.MIGRATION_2_3
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +22,9 @@ object DBModule {
             app,
             MainDb::class.java,
             "main_db"
-        ).build()
+        )
+        //.build
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
     }
     @Provides
     fun providesUserDao(mainDb: MainDb): Dao {
