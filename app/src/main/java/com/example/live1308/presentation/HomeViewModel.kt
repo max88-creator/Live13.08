@@ -15,7 +15,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val dao: Dao
 ) : ViewModel() {
-    val users: StateFlow<List<User>> = dao.observUsers()
+
+
+    val users: StateFlow<List<User>> = dao.observeUsers()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -23,12 +25,16 @@ class HomeViewModel @Inject constructor(
         )
 
     fun addUser(
-        name: String
+        name: String,
+        email: String,
+        age: Int
     ) {
         viewModelScope.launch {
             dao.addUser(
                 User(
-                    name = name
+                    name = name,
+                    email = email,
+                    age = age
                 )
             )
         }

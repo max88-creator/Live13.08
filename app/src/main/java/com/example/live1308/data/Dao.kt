@@ -11,7 +11,7 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(item: User): Long
     @Query("SELECT * FROM user ORDER BY id DESC")
-    fun observUsers(): Flow<List<User>>
+    fun observeUsers(): Flow<List<User>>
     @Query("SELECT * FROM user ORDER BY id ASC")
     suspend fun getAll(): List<User>
 }
