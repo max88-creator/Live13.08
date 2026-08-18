@@ -16,7 +16,6 @@ class HomeViewModel @Inject constructor(
     private val dao: Dao
 ) : ViewModel() {
 
-
     val users: StateFlow<List<User>> = dao.observeUsers()
         .stateIn(
             scope = viewModelScope,
@@ -36,6 +35,18 @@ class HomeViewModel @Inject constructor(
                     email = email,
                     age = age
                 )
+            )
+        }
+    }
+
+    fun deleteUser(
+       user: User
+    ) {
+        viewModelScope.launch {
+            dao.deleteUser(
+                User(
+                    user.id, user.name, user.email, user.age
+                 )
             )
         }
     }
